@@ -1,3 +1,4 @@
+using Basket.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,8 @@ namespace Basket.API
             {
                 opts.Configuration = Configuration["CacheSettings:ConnectionString"];
             });
+
+            services.AddScoped<IBasketRepository, BasketRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
