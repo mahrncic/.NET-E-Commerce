@@ -29,9 +29,11 @@ namespace Basket.API.Repositories
             return JsonConvert.DeserializeObject<ShoppingCart>(basket);
         }
 
-        public Task<ShoppingCart> UpdateBasket(ShoppingCart basket)
+        public async Task<ShoppingCart> UpdateBasket(ShoppingCart basket)
         {
-            throw new System.NotImplementedException();
+            await _redisCache.SetStringAsync(basket.UserName, JsonConvert.SerializeObject(basket));
+
+            return await GetBasket(basket.UserName);
         }
     }
 }
