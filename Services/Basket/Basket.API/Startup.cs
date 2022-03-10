@@ -27,7 +27,7 @@ namespace Basket.API
 
             services.AddStackExchangeRedisCache(opts =>
             {
-                opts.Configuration = "localhost:6379";
+                opts.Configuration = Configuration["CacheSettings:ConnectionString"];
             });
         }
 
