@@ -17,12 +17,24 @@ namespace Discount.API.Repositories
 
         public async Task<bool> CreateDiscount(Coupon coupon)
         {
-            throw new System.NotImplementedException();
+            using var connection = CreateAndReturnConnection();
+
+            var affected = await connection
+                                    .ExecuteAsync("INSERT INTO Coupon (ProductName, Description, Amount) VALUES (@ProductName, @Description, @Amount)",
+                                    new { ProductName = coupon.ProductName, Description = coupon.Description, Amount = coupon.Amount });
+            
+            return IsOperationExecutedSuccessfully(affected);
         }
 
         public async Task<bool> DeleteDiscount(string productName)
         {
-            throw new System.NotImplementedException();
+            using var connection = CreateAndReturnConnection();
+
+            var affected = await connection
+                                    .ExecuteAsync("Delete FROM Coupon WHERE ProductName = @ProductName",
+                                    new { ProductName = productName });
+
+            return IsOperationExecutedSuccessfully(affected);
         }
 
         public async Task<Coupon> GetDiscount(string productName)
@@ -42,7 +54,13 @@ namespace Discount.API.Repositories
 
         public async Task<bool> UpdateDiscount(Coupon coupon)
         {
-            throw new System.NotImplementedException();
+            using var connection = CreateAndReturnConnection();
+
+            var affected = await connection
+                                    .ExecuteAsync("UPDATE Coupon SET ProductName = @ProductName, Description = @Description, Amount = @Amount WHERE Id = @Id",
+                                    new { ProductName = coupon.ProductName, Description = coupon.Description, Amount = coupon.Amount, Id = coupon.Id });
+
+            return IsOperationExecutedSuccessfully(affected);
         }
 
         private NpgsqlConnection CreateAndReturnConnection()
@@ -58,6 +76,14 @@ namespace Discount.API.Repositories
                 ProductName = "No Discount",
                 Description = "No Discount for this product"
             };
+        }
+
+        private static bool IsOperationExecutedSuccessfully(int affected)
+        {
+            if (affected == 0)
+                return false;
+
+            return true;
         }
     }
 }
