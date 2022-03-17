@@ -14,6 +14,7 @@ namespace Discount.Grpc
         {
             services.AddScoped<IDiscountRepository, DiscountRepository>();
             services.AddGrpc();
+            services.AddAutoMapper(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
