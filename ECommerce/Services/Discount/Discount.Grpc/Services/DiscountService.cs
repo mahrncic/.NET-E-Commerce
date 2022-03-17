@@ -65,6 +65,9 @@ namespace Discount.Grpc.Services
                 Success = deleted
             };
 
+            if(response.Success)
+                _logger.LogInformation("Discount is successfully deleted. ProductName : {ProductName}", request.ProductName);
+            
             return response;
         }
     }
