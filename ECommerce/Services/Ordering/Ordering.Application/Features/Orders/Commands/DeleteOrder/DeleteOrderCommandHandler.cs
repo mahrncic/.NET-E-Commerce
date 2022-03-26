@@ -28,7 +28,6 @@ namespace Ordering.Application.Features.Orders.Commands.DeleteOrder
 
             if (orderToDelete == null)
             {
-                _logger.LogError("Order does not exist on the database.");
                 throw new NotFoundException(nameof(Order), request.Id);
             }
 
