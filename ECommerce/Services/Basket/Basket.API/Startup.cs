@@ -48,6 +48,8 @@ namespace Basket.API
                     cfg.Host(Configuration["EventBusSettings:HostAddress"]);
                 });
             });
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
