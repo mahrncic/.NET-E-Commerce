@@ -1,3 +1,4 @@
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,15 @@ namespace Ordering.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ordering.API", Version = "v1" });
             });
+
+            services.AddMassTransit(config =>
+            {
+                config.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                });
+            });
+
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
