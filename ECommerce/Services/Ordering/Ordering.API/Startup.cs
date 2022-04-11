@@ -1,3 +1,4 @@
+using EventBus.Messages.Common;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,9 +32,15 @@ namespace Ordering.API
 
             services.AddMassTransit(config =>
             {
+                config.AddConsumer<BasketCheckoutConsumer>();
+
                 config.UsingRabbitMq((ctx, cfg) =>
                 {
                     cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                    cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, (conf) =>
+                    {
+                        conf.ConfigureConsumer<BasketCheckoutConsumer>(ctx);
+                    });
                 });
             });
 
