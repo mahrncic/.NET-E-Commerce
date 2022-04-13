@@ -31,6 +31,8 @@ namespace Ordering.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ordering.API", Version = "v1" });
             });
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddMassTransit(config =>
             {
                 config.AddConsumer<BasketCheckoutConsumer>();
