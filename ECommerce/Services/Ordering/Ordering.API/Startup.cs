@@ -47,6 +47,8 @@ namespace Ordering.API
                 });
             });
 
+            services.AddScoped<BasketCheckoutConsumer>();
+
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
