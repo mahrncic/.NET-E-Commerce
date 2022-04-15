@@ -1,3 +1,3 @@
 # .NET-E-Commerce
 
-E-Commerce solution with Microservices + Clean Architecture (DDD) and Rabbit MQ for asynchronous communication between the services.
+E-Commerce .NET solution with Microservices + Clean Architecture (DDD + CQRS with Mediator pattern) and Rabbit MQ for asynchronous communication between the services.
