@@ -39,9 +39,6 @@ services:
   rabbitmq:
     container_name: rabbitmq
     restart: always
-    environment:
-      - RABBITMQ_DEFAULT_USER=user
-      - RABBITMQ_DEFAULT_PASS=master
     ports:
       - "5672:5672"
       - "15672:15672"
