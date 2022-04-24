@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Shopping.Aggregator.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,15 @@ namespace Shopping.Aggregator
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shopping.Aggregator", Version = "v1" });
             });
+
+            services.AddHttpClient<ICatalogService, CatalogService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:CatalogUrl"]));
+
+            services.AddHttpClient<IBasketService, BasketService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:BasketUrl"]));
+
+            services.AddHttpClient<IOrderingService, OrderingService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:OrderingUrl"]));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
